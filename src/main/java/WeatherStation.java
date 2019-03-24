@@ -50,6 +50,7 @@ public class WeatherStation extends JFrame {
         humidityData.setText(parseData.getHumidity() + " %");
         pressureData.setText(parseData.getPressure() + " hPa");
         windData.setText(parseData.getWindSpeed() + " m/sec");
+        descData.setText(parseData.getDescription());
 
         //draw image
         ImageIcon image = new ImageIcon(getImage(parseData.getImageUrl()));
@@ -59,7 +60,6 @@ public class WeatherStation extends JFrame {
 
     private void setDescription() {
         ParseData parseData = new ParseData(JSONReader.readJsonFromUrl(JSONReader.URL_CURRENT_WEATHER));
-        descData.setText(parseData.getDescription());
         cityData.setText(parseData.getCity());
     }
 
