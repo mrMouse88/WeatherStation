@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class WeatherStationTab extends JFrame{
+public class WeatherStationTab extends JFrame {
     private JTabbedPane tabbedPane1;
     private JPanel rootPanel;
     private JPanel currentPanel;
@@ -29,27 +29,29 @@ public class WeatherStationTab extends JFrame{
     private JLabel windSpeedData;
     private JLabel descriptionData;
 
-    public WeatherStationTab(){
+    public WeatherStationTab() {
         super("Weather Station");
         add(rootPanel);
 
         //bottom panel - clock and city
-        bottomPanel.setLayout(new GridLayout(1,2));
+        bottomPanel.setLayout(new GridLayout(1, 2));
         bottomPanel.add(clock);
         bottomPanel.add(city);
-        bottomPanel.setSize(500,20);
+        bottomPanel.setSize(500, 20);
 
-        setCurrentWeather();
         //panel with current weather
+        setCurrentWeather();
+        Timer currentWeatherTimer = new Timer(30000, e -> setCurrentWeather());
+        currentWeatherTimer.start();
 
         //panel with forecast weather
 
         //clock
-        Timer clockTimer = new Timer(1000, e-> clock.setText(setClock()));
+        Timer clockTimer = new Timer(1000, e -> clock.setText(setClock()));
         clockTimer.start();
 
         //settings
-        setSize(500,400);
+        setSize(500, 400);
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -57,12 +59,12 @@ public class WeatherStationTab extends JFrame{
 
 
     //set current weather data
-    private void setCurrentWeather(){
+    private void setCurrentWeather() {
         ParseData parseData = new ParseData(JSONReader.readJsonFromUrl(JSONReader.URL_CURRENT_WEATHER));
-        tempData.setText(parseData.getTemperature()+" °C");
-        humidityData.setText(parseData.getHumidity()+" %");
-        windSpeedData.setText(parseData.getWindSpeed()+" hPa");
-        pressureData.setText(parseData.getPressure()+" m/sec");
+        tempData.setText(parseData.getTemperature() + " °C");
+        humidityData.setText(parseData.getHumidity() + " %");
+        windSpeedData.setText(parseData.getWindSpeed() + " hPa");
+        pressureData.setText(parseData.getPressure() + " m/sec");
         descriptionData.setText(parseData.getDescription());
         city.setText(parseData.getCity());
 
@@ -72,7 +74,7 @@ public class WeatherStationTab extends JFrame{
     }
 
     //returning string with current time
-    private String setClock(){
+    private String setClock() {
         GregorianCalendar gc = new GregorianCalendar();
         StringBuilder time = new StringBuilder();
         time.append(addZero(gc.get(Calendar.HOUR_OF_DAY)));
@@ -84,21 +86,21 @@ public class WeatherStationTab extends JFrame{
     }
 
     //helper function to add 0 to time if less then 10
-    private String addZero(int t){
-        if (t<10){
-            return "0"+t;
-        }else{
-            return ""+t;
+    private String addZero(int t) {
+        if (t < 10) {
+            return "0" + t;
+        } else {
+            return "" + t;
         }
     }
 
     //helper function to get image
-    private Image getImage(String url){
+    private Image getImage(String url) {
         Image image = null;
         try {
             URL imageUrl = new URL(url);
             image = ImageIO.read(imageUrl);
-            image = image.getScaledInstance(75,75, Image.SCALE_SMOOTH);
+            image = image.getScaledInstance(75, 75, Image.SCALE_SMOOTH);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
