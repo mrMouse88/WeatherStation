@@ -9,7 +9,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 public class JSONReader {
-    public static String URL_CURRENT_WEATHER = "http://api.openweathermap.org/data/2.5/weather?q=Wroclaw,pl&units=metric&lang=pl&APPID=c9760569a5921f68f540acd64a575ea3";
+    public final static String URL_CURRENT_WEATHER = "http://api.openweathermap.org/data/2.5/weather?q=Wroclaw,pl&units=metric&lang=pl&APPID=c9760569a5921f68f540acd64a575ea3";
+    public final static String URL_FORECAST_WEATHER = "http://api.openweathermap.org/data/2.5/forecast?q=Wroclaw,pl&units=metric&lang=pl&APPID=c9760569a5921f68f540acd64a575ea3";
+
 
     public static JSONObject readJsonFromUrl(String url) {
         InputStream inputStream;
